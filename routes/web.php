@@ -24,10 +24,11 @@ Route::middleware('auth')->group(function () {
     // Route::get('/admin/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     // Route::put('/admin/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     // Route::delete('/admin/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+    
+    Route::resource('/admin/posts', PostController::class); // resource route must always come first
     Route::get('/admin/posts/deleted', [PostController::class, 'deleted'])->name('posts.deleted');
     Route::patch('/admin/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
     Route::delete('/admin/posts/{post}/permadestroy', [PostController::class, 'permaDestroy'])->name('posts.permadestroy');
-    Route::resource('/admin/posts', PostController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
