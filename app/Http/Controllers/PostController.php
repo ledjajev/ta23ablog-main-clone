@@ -14,8 +14,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
-        return view('posts.index', compact('posts'));
+        $perPage = request()->query('perPage', 10);
+        $posts = Post::paginate($perPage)->withQueryString();
+        return view('posts.index', compact('posts', 'perPage'));
     }
 
     /**
@@ -71,9 +72,11 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function deleted(){
-        $posts = Post::onlyTrashed()->paginate();
-        return view('posts.index', compact('posts'));
+    public function deleted()
+    {
+        $perPage = request()->query('perPage', 10);
+        $posts = Post::onlyTrashed()->paginate($perPage)->withQueryString();
+        return view('posts.index', compact('posts', 'perPage'));
     }
 
     /**
